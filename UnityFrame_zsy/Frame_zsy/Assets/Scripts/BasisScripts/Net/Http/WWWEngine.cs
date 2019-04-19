@@ -13,39 +13,24 @@ using ClientCore;
 /// </summary>
 public class WWWEngine : SingletonObject<WWWEngine> {
 
-    private string ImagePath = "/ImageCache/";
     private static string ABundlePath = "/AbundleCache/";
-
-    private WWWEngine() { }
-
-    /// <summary>
-    /// 路径
-    /// </summary>
-    public string Path
-    {
-        get
-        {
-            return Application.persistentDataPath + "/WebCache";
-        }
-    }
 
     /// <summary>
     /// 初始化 下载路径
     /// </summary>
     protected override void Spawn()
     {
-        if (!Directory.Exists(Path + ImagePath))
+        if (!Directory.Exists(PathUtils.WebImageSavePath))
         {
-            Directory.CreateDirectory(Path + ImagePath);
+            Directory.CreateDirectory(PathUtils.WebImageSavePath);
         }
     }
 
     /// <summary>
     /// 静态设置
     /// </summary>
-    public static  void SetGameAsyncImage(Image image,string imagename)
+    public static  void SetGameAsyncImage(Image image,string imagename,string url)
     {
-        string url = PathUtils.ImagePath +"/"+ imagename;
         if (url != null)
         {
             WWWEngine.Ins.SetAsyncImage(url, image);
@@ -62,7 +47,7 @@ public class WWWEngine : SingletonObject<WWWEngine> {
     private void SetAsyncImage(string url,Image image)
     {
         //是否第一次加载
-        if (!File.Exists(Path +ImagePath+ url.GetHashCode()))
+        if (!File.Exists(PathUtils.WebImageSavePath+ url.GetHashCode()))
         {
             StartCoroutine(LoadWebImage(url,image));
         }
@@ -92,7 +77,7 @@ public class WWWEngine : SingletonObject<WWWEngine> {
                     {
                         //保存图片
                         byte[] pngData = tex2d.EncodeToPNG();
-                        File.WriteAllBytes(Path + ImagePath + url.GetHashCode(), pngData);
+                        File.WriteAllBytes(PathUtils.WebImageSavePath + url.GetHashCode(), pngData);
                         Sprite m_sprite = Sprite.Create(tex2d, new Rect(0, 0, tex2d.width, tex2d.height), Vector2.zero);
                         image.sprite = m_sprite;
                     }
@@ -126,7 +111,7 @@ public class WWWEngine : SingletonObject<WWWEngine> {
     /// </summary>
     public IEnumerator DownFile(string url, string savePath, Action<WWW> process)
     {
-        savePath = Path + ABundlePath + savePath;
+        savePath = PathUtils.CachePath + ABundlePath + savePath;
         FileInfo file = new FileInfo(savePath);
         stopWatch.Start();
         UnityEngine.Debug.Log("Start:" + Time.realtimeSinceStartup);
@@ -171,7 +156,7 @@ public class WWWEngine : SingletonObject<WWWEngine> {
     /// </summary>
     IEnumerator LoadLocalImage(string url, Image image)
     {
-        string filePath = "file:///" + Path +ImagePath+ url.GetHashCode();
+        string filePath = "file:///" + PathUtils.WebImageSavePath+ url.GetHashCode();
         if (url != "" || image != null)
         {
             WWW www = new WWW(filePath);

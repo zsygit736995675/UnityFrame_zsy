@@ -24,9 +24,14 @@ public class PathUtils  {
 
 
     /// <summary>
+    /// 缓存目录名
+    /// </summary>
+    public static readonly string CachePath = Application.persistentDataPath + "/WebCache";
+
+    /// <summary>
     /// 图片保存目录
     /// </summary>
-    public static readonly string ImageSavePath="";
+    public static readonly string WebImageSavePath=CachePath+"/ImageCache/";
 
 
 

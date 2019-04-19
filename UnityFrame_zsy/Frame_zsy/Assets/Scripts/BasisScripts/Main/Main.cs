@@ -17,4 +17,34 @@ public class Main : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!App.EventMgrHelper.isInit)
+            return;
+
+        if (focus)
+        {
+            Logger.Log("OnApplicationFocus  回到游戏");
+        }
+        else
+        {
+            Logger.Log("OnApplicationFocus  离开游戏");
+        }
+    }
+    
+    private void OnApplicationPause(bool Pause)
+    {
+        if (Pause)
+        {
+            Logger.Log("OnApplicationPause  回到游戏");
+        }
+        else
+        {
+            Logger.Log("OnApplicationPause  离开游戏");
+        }
+    }
 }

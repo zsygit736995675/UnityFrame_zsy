@@ -45,6 +45,40 @@ using System.Collections.Generic;
         */
         private List<int> _freeResClose;
 
+
+        /**
+          * 游戏背景层
+          * @type {BaseSpriteLayer}
+          */
+        public Canvas Game_Bg;
+
+        ///**
+        // * 主游戏层
+        // * @type {BaseSpriteLayer}
+        // */
+        public static Canvas Game_Main;
+
+        /**
+         * UI主界面
+         * @type {BaseEuiLayer}
+         */
+        public Canvas UI_Main;
+        /**
+         * UI弹出框层
+         * @type {BaseEuiLayer}
+         */
+        public Canvas UI_Popup;
+        /**
+         * UI警告消息层
+         * @type {BaseEuiLayer}
+         */
+        public Canvas UI_Message;
+        /**
+         * UITips层
+         * @type {BaseEuiLayer}
+         */
+        public Canvas UI_Tips;
+
         /**
          * 构造函数
          */
@@ -67,7 +101,7 @@ using System.Collections.Generic;
             this._views.Clear();
         }
 
-        public void register(ViewConst key, IBaseView view)
+        public void register(ViewDef key, IBaseView view)
         {
             register((int)key, view);
         }
@@ -124,7 +158,7 @@ using System.Collections.Generic;
             this.register(key, newView);
         }
 
-        public IBaseView open(ViewConst key, params object[] param)
+        public IBaseView open(ViewDef key, params object[] param)
         {
             return open((int)key, param);
         }
@@ -289,7 +323,7 @@ using System.Collections.Generic;
             }
         }
 
-        public void close(ViewConst viewConst, params object[] param)
+        public void close(ViewDef viewConst, params object[] param)
         {
             int key = (int)viewConst;
             close(key, param);
@@ -371,7 +405,7 @@ using System.Collections.Generic;
             return this._opens.Count;
         }
 
-        public bool isShow(ViewConst viewConst)
+        public bool isShow(ViewDef viewConst)
         {
             return isShow((int)viewConst);
         }

@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
-    public class BaseEuiView : IBaseView
+public class BaseEuiView : IBaseView
     {
         protected BaseController _controller;
         protected Canvas _myParent;
@@ -242,41 +243,35 @@ using System.Collections.Generic;
         }
 
         /// <summary>
-        /// 查找子物体（递归查找）  
+        /// 查找子物体 返回Transform 
         /// </summary> 
-        /// <param name="trans">父物体</param>
-        /// <param name="goName">子物体的名称</param>
-        /// <returns>找到的相应子物体</returns>
         public Transform FindChild(string goName)
         {
             if (mFrame == null || string.IsNullOrEmpty(goName))
                 return null;
-            Transform go = null;
-            go = ObjUtils.FindChild(mFrame.transform, goName);
+         
+            Transform go = ObjUtils.FindChild(mFrame.transform, goName);
             return go;
         }
 
         /// <summary>
-        /// 查找子物体（递归查找）  where T : UnityEngine.Object
+        /// 查找子物体（递归查找） 返回指定类型
         /// </summary> 
-        /// <param name="trans">父物体</param>
-        /// <param name="goName">子物体的名称</param>
-        /// <returns>找到的相应子物体</returns>
         public T FindChild<T>(string goName) where T : UnityEngine.Object
         {
             T go = null;
             if (mFrame == null || string.IsNullOrEmpty(goName))
+            {
                 return null;
-            go = ObjUtils.FindChild<T>(mFrame.transform, goName);
+            }
+               
+            go = FindChild<T>(mFrame.transform, goName);
             return go;
         }
 
         /// <summary>
         /// 查找子物体（递归查找）  where T : UnityEngine.Object
         /// </summary> 
-        /// <param name="parent">父物体</param>
-        /// <param name="goName">子物体的名称</param>
-        /// <returns>找到的相应子物体</returns>
         public T FindChild<T>(Transform parent, string goName) where T : UnityEngine.Object
         {
             T go = null;
@@ -295,4 +290,13 @@ using System.Collections.Generic;
             return go;
         }
 
-    }
+        /**
+         * 显示模型到ui
+         * **/
+        protected void ShowDummy(GameObject go, string name, Vector3 offset, Action callback = null)
+        {
+
+       
+        }
+
+}

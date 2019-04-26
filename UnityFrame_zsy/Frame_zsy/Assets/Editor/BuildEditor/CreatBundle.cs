@@ -37,7 +37,7 @@ public class CreatBundleWindow : EditorWindow
 
         //打包1.输出路径 2.选项 3.目标平台     EditorUserBuildSettings.activeBuildTarget
        // BuildPipeline.BuildAssetBundles(ToolsConst.AssetBundlesOutPutPath, BuildAssetBundleOptions.None, BuildTarget.Android);
-       BuildPipeline.BuildAssetBundles(ToolsConst.AssetBundlesOutPutPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+        BuildPipeline.BuildAssetBundles(ToolsConst.AssetBundlesOutPutPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
 
         AssetDatabase.Refresh();
 

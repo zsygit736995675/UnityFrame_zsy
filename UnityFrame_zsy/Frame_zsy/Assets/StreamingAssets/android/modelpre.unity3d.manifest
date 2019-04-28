@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 2722908461
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cf1393ee88a1fbef98e0a44e73ea92c8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 405927726b5b144f29351ed5c70d043f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/res/buildRes/Prefab/modelPre/jiuyue.prefab
+Dependencies:
+- D:/Git/new_path/UnityFrame_zsy/UnityFrame_zsy/Frame_zsy/Assets/StreamingAssets/android/fbx_jiuyue_richang.unity3d

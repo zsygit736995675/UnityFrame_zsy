@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 3541436045
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: android/fbx_jiuyue_richang.unity3d
+      Dependencies:
+        Dependency_0: android/unitychans.unity3d
+        Dependency_1: android/unitychant.unity3d
+    Info_1:
+      Name: android/mainmusic.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: android/modelpre.unity3d
+      Dependencies:
+        Dependency_0: android/fbx_jiuyue_richang.unity3d
+    Info_3:
+      Name: android/uipre.unity3d
+      Dependencies:
+        Dependency_0: android/uimain.unity3d
+    Info_4:
+      Name: android/unitychans.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: android/uimain.unity3d
+      Dependencies: {}
+    Info_6:
+      Name: android/unitychant.unity3d
+      Dependencies: {}
+    Info_7:
+      Name: android/exp_bytes.unity3d
+      Dependencies: {}

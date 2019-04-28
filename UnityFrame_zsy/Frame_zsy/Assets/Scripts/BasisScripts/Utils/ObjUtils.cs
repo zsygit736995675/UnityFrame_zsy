@@ -8,10 +8,23 @@ using UnityEngine;
 public class ObjUtils  {
 
 
-
-
-
-
+    /// <summary>
+    /// 获取对象路径
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="root"></param>
+    /// <returns></returns>
+    public static string GetPath(GameObject go, GameObject root = null)
+    {
+        string path = go.name;
+        Transform parent = go.transform.parent;
+        while (parent != null && parent.gameObject != root)
+        {
+            path = parent.gameObject.name + "/" + path;
+            parent = parent.parent;
+        }
+        return path;
+    }
 
     /// <summary>
     /// 查找子物体（递归查找）  
@@ -38,6 +51,20 @@ public class ObjUtils  {
             }  
         }
         return null;
+    }
+
+    /// <summary>
+    ///  去掉所有UIPrefab上的脚本
+    /// </summary>
+    public static void CleanScripts(GameObject go)
+    {
+        if (go == null)
+            return;
+
+        foreach (Transform child in go.transform)
+        {
+            CleanScripts(child.gameObject);
+        }
     }
 
     /// <summary>

@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 1033811411
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 657be9af79d4f244662038ac0760035a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1f8190f465e6d3099ac0770229e4237
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 109
+  Script: {instanceID: 0}
+Assets:
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_eye.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_fuku.shader
+- Assets/res/buildRes/Shader/unityChanS/Game_CameraEffect_Bloom.shader
+- Assets/res/buildRes/Shader/unityChanS/CharaSkin.cg
+- Assets/res/buildRes/Shader/unityChanS/CharaMain.cg
+- Assets/res/buildRes/Shader/unityChanS/GlobalFog.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_fuku_ds.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_eye_blend.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_hair_ds.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_akarami_blend.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_hair.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_eyelash_blend.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_hada.shader
+- Assets/res/buildRes/Shader/unityChanS/Unitychan_chara_hada_blend.shader
+- Assets/res/buildRes/Shader/unityChanS/CharaOutline.cg
+Dependencies: []

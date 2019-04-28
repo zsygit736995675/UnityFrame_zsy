@@ -125,10 +125,28 @@ public class EditorMenu : Editor {
     /// <summary>
     /// 刷新配置文件
     /// </summary>
-    [MenuItem("Tools/ExportAssetBundle/ResetHashFile", false, 1)]
-    static void ResetHashFile()
+    [MenuItem("Tools/ExportAssetBundle/ResetHashFile/Android", false, 1)]
+    static void ResetHashFileAndroid()
     {
-        CreatBundle.ResetHashFile();
+        CreatBundle.ResetHashFile(BuildTarget.Android);
+    }
+
+    /// <summary>
+    /// 刷新配置文件
+    /// </summary>
+    [MenuItem("Tools/ExportAssetBundle/ResetHashFile/Ios", false, 1)]
+    static void ResetHashFileIos()
+    {
+        CreatBundle.ResetHashFile(BuildTarget.iOS);
+    }
+
+    /// <summary>
+    /// 刷新配置文件
+    /// </summary>
+    [MenuItem("Tools/ExportAssetBundle/ResetHashFile/Win", false, 1)]
+    static void ResetHashFileWin()
+    {
+        CreatBundle.ResetHashFile(BuildTarget.StandaloneWindows64);
     }
 
     /// <summary>

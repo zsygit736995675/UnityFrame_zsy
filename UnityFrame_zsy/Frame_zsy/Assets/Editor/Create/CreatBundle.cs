@@ -63,7 +63,7 @@ public class CreatBundle :MonoBehaviour
     }
 
     /// <summary>
-    /// 生成表格ab
+    /// 单独生成表 旧方式打包
     /// </summary>
     /// <param name="target"></param>
     public static void ExportConfig(BuildTarget target)
@@ -120,9 +120,11 @@ public class CreatBundle :MonoBehaviour
     /// <summary>
     ///刷新配置文件
     /// </summary>
-    public static void ResetHashFile()
+    public static void ResetHashFile(BuildTarget target)
     {
-
+        string path = PathUtils.GetPlatformName((int)target);
+        FileUtils.CreatMD5XML("StreamingAssets/"+path);
+        AssetDatabase.Refresh();
     }
 
     /// <summary>

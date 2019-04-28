@@ -55,7 +55,7 @@ public class PathUtils  {
         string name = "";
         switch (target)
         {
-            case 5://win
+            case 19://win
                 name =   "Android";
                 break;
 

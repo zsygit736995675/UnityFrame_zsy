@@ -15,7 +15,7 @@ public class SpinWithMouse : MonoBehaviour
 
 	void OnDrag (Vector2 delta)
 	{
-        Debug.Log(delta.ToString());
+        Logger.Log(delta.ToString());
 		if (target != null)
 		{
 			target.localRotation = Quaternion.Euler(0f, -0.5f * delta.x * speed, 0f) * target.localRotation;

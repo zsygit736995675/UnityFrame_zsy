@@ -301,13 +301,13 @@ using System.Collections.Generic;
             IBaseView view = this.getView(key);
             if (view == null)
             {
-                Debug.Log("UI_" + key + "不存在");
+                Logger.Log("UI_" + key + "不存在");
                 return;
             }
 
             if (!view.isShow())
             {
-                Debug.Log("请先打开" + "UI_" + key);
+                Logger.Log("请先打开" + "UI_" + key);
                 return;
             }
 
@@ -319,7 +319,7 @@ using System.Collections.Generic;
             }
             else
             {
-                Debug.Log("view type error");
+                Logger.Log("view type error");
             }
         }
 

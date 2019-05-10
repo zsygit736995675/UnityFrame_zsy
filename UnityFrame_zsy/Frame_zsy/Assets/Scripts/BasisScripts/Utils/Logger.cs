@@ -3,10 +3,22 @@ using System.Diagnostics;
 using System.Reflection;
 using UnityEngine;
 
-public class Logger
+public class Logger 
 {
 
     public static bool EnableLogger = true;//是否激活
+    private static demo main;
+
+    private static demo Main
+    {
+        get {
+            if (main == null)
+            {
+                main = Camera.main.gameObject.GetComponent<demo>();
+            }
+            return main;
+        }
+    }
 
     /// <summary>
     /// 弃用
@@ -33,7 +45,6 @@ public class Logger
     {
         if (EnableLogger)
         {
-
             StackTrace trace = new StackTrace();
 
             Type type = trace.GetFrame(1).GetMethod().DeclaringType;
@@ -41,6 +52,8 @@ public class Logger
             string method = trace.GetFrame(1).GetMethod().ToString();
 
             UnityEngine.Debug.Log(ToString("Log:---->", type, method, message));
+
+            Main.SetLogText(ToString("Log:---->", type, method, message));
         }
     }
 
@@ -48,7 +61,6 @@ public class Logger
     {
         if (EnableLogger)
         {
-
             StackTrace trace = new StackTrace();
 
             Type type = trace.GetFrame(1).GetMethod().DeclaringType;
@@ -56,6 +68,8 @@ public class Logger
             string method = trace.GetFrame(1).GetMethod().ToString();
 
             UnityEngine.Debug.Log(ToString("Log:---->", type, method, message), context);
+
+            Main.SetLogText(ToString("Log:---->", type, method, message));
         }
     }
 
@@ -63,7 +77,6 @@ public class Logger
     {
         if (EnableLogger)
         {
-
             StackTrace trace = new StackTrace();
 
             Type type = trace.GetFrame(1).GetMethod().DeclaringType;
@@ -71,6 +84,7 @@ public class Logger
             string method = trace.GetFrame(1).GetMethod().ToString();
 
             UnityEngine.Debug.LogError(ToString("Error:---->", type, method, message));
+            Main.SetLogText(ToString("Error:---->", type, method, message));
         }
     }
 
@@ -86,6 +100,7 @@ public class Logger
             string method = trace.GetFrame(1).GetMethod().ToString();
 
             UnityEngine.Debug.LogError(ToString("Error:---->", type, method, message), context);
+            Main.SetLogText(ToString("Error:---->", type, method, message));
         }
     }
 

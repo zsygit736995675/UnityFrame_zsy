@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,23 +10,17 @@ using UnityEngine;
 public class PathUtils  {
 
     public const string bundleFilePathRoot = "/res/buildRes/";//打包资源根路径
-    public const string AssetBundlesOutPutPath = "Assets/StreamingAssets";//Ab包保存跟目录
+    public const string AssetBundlesOutPutPath = "Assets/StreamingAssets";//Ab打包保存跟目录
     public static string tablePath = "/exp/exp_bytes/";//表格路径
-
-
+    public static string persiPath = Application.persistentDataPath;//缓存地址，有可能会在回调中使用，所以先保存一下，只能在主线程使用
 
     /// <summary>
-    /// 获取资源路径
+    /// 版本管理文件url
     /// </summary>
-    public static List<string> GetBundlePath(string path)
-    {
-        List<string> paths = new List<string>();
-        paths.Add(Application.dataPath + bundleFilePathRoot + path);
-        return paths;
-    }
+    public static readonly string versionUrl = "http://u3d-model.oss-cn-beijing.aliyuncs.com/model/Res/Ver3/z_version.txt";
 
     /// <summary>
-    /// 获取资源保存路径
+    /// 获取资源保存路径，打包时保存路径
     /// </summary>
     public static string GetAssetOutPath(int target)
     {
@@ -48,7 +43,7 @@ public class PathUtils  {
     }
 
     /// <summary>
-    /// 获取平台名称
+    /// 获取平台名称，打包时用，传平台枚举值
     /// </summary>
     public static string GetPlatformName(int target)
     {
@@ -85,23 +80,60 @@ public class PathUtils  {
         "file://" + Application.dataPath + "/StreamingAssets/Windows/";
 #endif
 
-
+    /// <summary>
+    /// assetbundle包本地存放位置
+    /// </summary>
+    public static  string ABPath
+    {
+        get
+        {
+            string path = persiPath + "/WebCache/ResCache/";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+           return path;
+        }
+    }
 
     /// <summary>
-    /// 缓存目录名
+    /// assetbundle包本地存放位置
     /// </summary>
-    public static readonly string CachePath = Application.persistentDataPath + "/WebCache";
+    public static string LoadABPath
+    {
+        get
+        {
+            string path =  persiPath + "/WebCache/ResCache/";
+            path = "file:///" + path;
+            return path;
+        }
+    }
 
     /// <summary>
-    /// 图片保存目录
+    /// 网络图片保存目录
     /// </summary>
-    public static readonly string WebImageSavePath=CachePath+"/ImageCache/";
+    public static  string WebImageSavePath
+    {
+        get
+        {
+            string path= persiPath + "/WebCache/ImageCache/"; 
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            return path;
+        }
+    }
 
-
-
-
-
-
+    /// <summary>
+    /// 平台名称，下载时只区分安卓和ios，pc使用安卓的资源
+    /// </summary>
+    public static readonly string platName =
+#if UNITY_IOS 
+		 "IOS";
+#else
+       "Android";
+#endif
 
 
 }

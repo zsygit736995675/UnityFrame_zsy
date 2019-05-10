@@ -4,22 +4,38 @@ using UnityEngine;
 
 public class Main : MonoBehaviour {
 
-    
+    [SerializeField]
+    private int localVersion = 1; //版本号
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    private bool UseLocalConfig;//是否使用本地表格
 
-        ConfFact.Register();
-        Logger.Log(StrConfig.GetConfig(960).str);
+    private void Awake()
+    {
+      
+        App.Ins.UseLocalConfig = UseLocalConfig;
+        App.Ins.Init();
+        VersionManager.Ins.Update(localVersion, LoadCallback);
+    }
+
+    /// <summary>
+    /// 版本更新结束
+    /// </summary>
+    private void LoadCallback()
+    {
+        Debug.Log("LoadCallback");
+    }
+
+    // Use this for initialization
+    void Start () {
+        
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        App.Ins.Update();
 	}
-
-
-
 
     private void OnApplicationFocus(bool focus)
     {

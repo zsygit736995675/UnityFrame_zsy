@@ -8,10 +8,12 @@ using UnityEngine;
 public class App : BaseClass<App> {
 
 
-
-
-
-
+    private bool useLocalConfig=true;
+    public bool UseLocalConfig
+    {
+        set { useLocalConfig = value; }
+        get { return useLocalConfig; }
+    }
 
 
     /// <summary>
@@ -23,7 +25,7 @@ public class App : BaseClass<App> {
     }
 
     /// <summary>
-    /// ui控制管理
+    /// 控制管理
     /// </summary>
     public static ControllerManager ControllerManager
     {
@@ -38,6 +40,21 @@ public class App : BaseClass<App> {
         get { return ViewManager.Ins; }
     }
 
+    /// <summary>
+    /// 通讯管理
+    /// </summary>
+    public static NoticeManager NoticeManager
+    {
+        get { return NoticeManager.Ins; }
+    }
+
+    /// <summary>
+    /// ab资源管理
+    /// </summary>
+    public static ResMgr ResManager
+    {
+        get { return ResMgr.Ins; }
+    }
 
     /// <summary>
     /// 初始化
@@ -45,11 +62,18 @@ public class App : BaseClass<App> {
     public void Init()
     {
         EventMgrHelper.Init();
-
-
-
+        ControllerManager.RegisterAllController();
+        NoticeManager.Init();
+      
     }
 
+    /// <summary>
+    /// update
+    /// </summary>
+    public void Update()
+    {
+      
+    }
 
 
 

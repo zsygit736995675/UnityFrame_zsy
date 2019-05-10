@@ -13,23 +13,20 @@ using ClientCore;
 /// </summary>
 public class WWWEngine : SingletonObject<WWWEngine> {
 
-    private static string ABundlePath = "/AbundleCache/";
-
     /// <summary>
     /// 初始化 下载路径
     /// </summary>
     protected override void Spawn()
     {
-        if (!Directory.Exists(PathUtils.WebImageSavePath))
-        {
-            Directory.CreateDirectory(PathUtils.WebImageSavePath);
-        }
+   
+
+       
     }
 
     /// <summary>
     /// 静态设置
     /// </summary>
-    public static  void SetGameAsyncImage(Image image,string imagename,string url)
+    public static  void SetGameAsyncImage(Image image,string url)
     {
         if (url != null)
         {
@@ -106,12 +103,12 @@ public class WWWEngine : SingletonObject<WWWEngine> {
 
 
     static System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+
     /// <summary>
     /// 下载文件
     /// </summary>
     public IEnumerator DownFile(string url, string savePath, Action<WWW> process)
     {
-        savePath = PathUtils.CachePath + ABundlePath + savePath;
         FileInfo file = new FileInfo(savePath);
         stopWatch.Start();
         UnityEngine.Debug.Log("Start:" + Time.realtimeSinceStartup);
@@ -162,7 +159,7 @@ public class WWWEngine : SingletonObject<WWWEngine> {
             WWW www = new WWW(filePath);
             yield return www;
 
-            if (www.error == null)
+            if (www.isDone && www.error == null)
             {
                 Texture2D texture = www.texture;
                 if (texture != null)

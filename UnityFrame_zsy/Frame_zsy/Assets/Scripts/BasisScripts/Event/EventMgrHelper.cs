@@ -4,7 +4,7 @@ using System.Collections.Generic;
     /// <summary>
     /// 事件注册 分发
     /// </summary>
-    public class EventMgrHelper : BaseClass<EventMgrHelper>
+    public class EventMgrHelper : SingletonObject<EventMgrHelper>
     {
         public bool isInit = false;
 
@@ -142,6 +142,13 @@ using System.Collections.Generic;
 
         public void Update()
         {
+            if (mListEvent == null)
+            {
+                mParamIndex = (mParamIndex + 1) % 2;
+                mListEvent = paramArray[mParamIndex];
+                UnityEngine.Debug.Log("paramArray:"+paramArray.Length) ;
+            }
+
             if (mListEvent.Count == 0)
                 return;
 

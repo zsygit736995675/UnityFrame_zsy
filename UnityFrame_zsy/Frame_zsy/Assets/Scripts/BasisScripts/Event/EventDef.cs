@@ -7,7 +7,7 @@ public enum EventDef
 {
     NONE = 0,
 
-
+    Test=1,
 
 
     RepAction=10000,//于原生通讯开始

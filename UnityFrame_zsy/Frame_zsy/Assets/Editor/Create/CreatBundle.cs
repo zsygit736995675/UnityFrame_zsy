@@ -25,8 +25,14 @@ public class CreatBundle :MonoBehaviour
 
         ResetAssetAllMask();
 
+        string savePath = PathUtils.AssetBundlesOutPutPath + "/" + PathUtils.GetPlatformName((int)target);
+        if (!Directory.Exists(savePath))
+        {
+            Directory.CreateDirectory(savePath);
+        }
+
         //打包1.输出路径 2.选项 3.目标平台    
-        AssetBundleManifest manifest= BuildPipeline.BuildAssetBundles(PathUtils.AssetBundlesOutPutPath, BuildAssetBundleOptions.DeterministicAssetBundle|BuildAssetBundleOptions.StrictMode, target);
+        AssetBundleManifest manifest= BuildPipeline.BuildAssetBundles(savePath, BuildAssetBundleOptions.DeterministicAssetBundle|BuildAssetBundleOptions.StrictMode, target);
 
         //编译资源
         AssetDatabase.Refresh();
@@ -123,7 +129,7 @@ public class CreatBundle :MonoBehaviour
     public static void ResetHashFile(BuildTarget target)
     {
         string path = PathUtils.GetPlatformName((int)target);
-        FileUtils.CreatMD5XML("StreamingAssets/"+path);
+        FileUtils.CreatMD5XML(path);
         AssetDatabase.Refresh();
     }
 
@@ -176,219 +182,13 @@ public class CreatBundle :MonoBehaviour
         List<string> pathFiles = new List<string>();
 
         Recursive(resPath, pathFiles);
+
         if (pathFiles.Count > 0)
         {
             string resName = PathUtils.GetPlatformName((int)currentTarget);
             SetAssetBundlesName(pathFiles, resName);
         }
     }
-
-    /// <summary>
-    /// 旧的设置标识
-    /// </summary>
-    private void oldMethod()
-    {
-        //ExportAssetCommonTexture();
-        //ExportAssetCommonScene();
-        //ExportAssetCommonFont();
-        //ExportAssetCommonUI();
-        //ExportAssetCommonImage();
-        //ExportAssetCommonEffect();
-        //ExportAssetCommonAnimation();
-        //ExportAssetCommonRole();
-        //ExportAssetCommonAudio();
-        //ExportAssetCommonConfig();
-        //ExportAssetCommonOther();
-    }
-
-    ////贴图
-    //private static void ExportAssetCommonTexture()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonSceneTexturePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".renderTexture");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    SetAssetBundleName(pathFiles, "texture");
-    //}
-
-    ////场景
-    //private static void ExportAssetCommonScene()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonSceneFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".unity");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    SetAssetBundleName(pathFiles, "scene");
-    //}
-
-    ////通用UI
-    //static void ExportAssetCommonUI()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonUIFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".prefab");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    ActivePrefab(pathFiles, "ui");
-    //}
-
-    ////Role
-    //static void ExportAssetCommonRole()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonUIRolePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".prefab");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundleName(pathFiles, "role");
-    //}
-
-    ////图片
-    //static void ExportAssetCommonImage()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonImageFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".png");
-    //    includeNames.Add(".jpg");
-    //    includeNames.Add(".bmp");
-    //    includeNames.Add(".tga");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundlesName(pathFiles, "icon");
-    //}
-
-    ////表格
-    //static void ExportAssetCommonConfig() {
-    //    List<string> tabPaths = ToolsConst.GetCommonConfigFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".bytes");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    SetAssetBundlesName(pathFiles,"config");
-    //}
-
-
-    ////字体
-    //static void ExportAssetCommonFont()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonFontFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-    //    includeNames.Add(".ttf");
-    //    includeNames.Add(".TTF");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundlesName(pathFiles, "fonts");
-    //}
-
-    ////声音
-    //static void ExportAssetCommonAudio()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonAudioFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-
-    //    includeNames.Add(".mp3");
-    //    includeNames.Add(".wav");
-    //    includeNames.Add(".ogg");
-    //    includeNames.Add(".aiff");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundleName(pathFiles, "audio");
-    //}
-
-    ////通用特效
-    //static void ExportAssetCommonEffect()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonEffectFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-
-    //    includeNames.Add(".prefab");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundleName(pathFiles, "effect");
-    //}
-
-    ////通用动画
-    //static void ExportAssetCommonAnimation()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonAnimationFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-
-    //    includeNames.Add(".anim");
-    //    includeNames.Add(".controller");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundlesName(pathFiles, "anim");
-    //}
-
-
-    ////other
-    //static void ExportAssetCommonOther()
-    //{
-    //    List<string> tabPaths = ToolsConst.GetCommonOtherFilePath();
-    //    List<string> paths = new List<string>();
-    //    List<string> pathFiles = new List<string>();
-    //    List<string> includeNames = new List<string>();
-
-    //    includeNames.Add(".prefab");
-    //    includeNames.Add(".png");
-    //    foreach (var v in tabPaths)
-    //    {
-    //        Recursive(v, paths, pathFiles, includeNames);
-    //    }
-    //    //给文件设置AssetBundleName
-    //    SetAssetBundleName(pathFiles, "other");
-    //}
-
-    //设置assetBundleName
 
     /// <summary>
     /// 对单个物体设置标识，标识就是物体名称
@@ -402,8 +202,8 @@ public class CreatBundle :MonoBehaviour
             string newfile = pathFiles[i].Replace(Application.dataPath, "Assets");
             //在代码中给资源设置AssetBundleName
             AssetImporter assetImporter = AssetImporter.GetAtPath(newfile);
-            assetImporter.assetBundleName = name + "/" + strBundleName + ".ab";
-            //assetImporter.assetBundleVariant = "ab";
+            assetImporter.assetBundleName = name + "/" + strBundleName .ToLower();
+            assetImporter.assetBundleVariant = "unity3d";
             EditorUtility.DisplayProgressBar(strBundleName, "", (float)i / (float)max);
         }
     }
@@ -423,7 +223,7 @@ public class CreatBundle :MonoBehaviour
 
             //在代码中给资源设置AssetBundleName
             AssetImporter assetImporter = AssetImporter.GetAtPath(newfile);
-            assetImporter.assetBundleName = name + "/" + strBundleName.ToLower() ;//bundle名
+            assetImporter.assetBundleName =  strBundleName.ToLower() ;//bundle名
             assetImporter.assetBundleVariant = "unity3d";//后缀名
         
             EditorUtility.DisplayProgressBar(strBundleName, "", (float)i / (float)max);
@@ -448,8 +248,9 @@ public class CreatBundle :MonoBehaviour
             {
                 continue;
             }
-            pathFiles.Add(filename.Replace('\\', '/'));
+            pathFiles.Add(filename.Replace('\\', '/')); 
         }
+
         foreach (string dir in dirs)
         {
             paths.Add(dir.Replace('\\', '/'));
@@ -482,13 +283,219 @@ public class CreatBundle :MonoBehaviour
             Recursive(dir, pathFiles);
         }
     }
-   
-   
+
+    /// <summary>
+    /// 旧的设置标识
+    /// </summary>
+    private void oldMethod()
+    {
+        ExportAssetCommonTexture();
+        ExportAssetCommonScene();
+        ExportAssetCommonFont();
+        ExportAssetCommonUI();
+        ExportAssetCommonImage();
+        ExportAssetCommonEffect();
+        ExportAssetCommonAnimation();
+        ExportAssetCommonRole();
+        ExportAssetCommonAudio();
+        ExportAssetCommonConfig();
+        ExportAssetCommonOther();
+    }
+
+    //贴图
+    private static void ExportAssetCommonTexture()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonSceneTexturePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".renderTexture");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        SetAssetBundleName(pathFiles, "texture");
+    }
+
+    //场景
+    private static void ExportAssetCommonScene()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonSceneFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".unity");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        SetAssetBundleName(pathFiles, "scene");
+    }
+
+    //通用UI
+    static void ExportAssetCommonUI()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonUIFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".prefab");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        ActivePrefab(pathFiles, "ui");
+    }
+
+    //Role
+    static void ExportAssetCommonRole()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonUIRolePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".prefab");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundleName(pathFiles, "role");
+    }
+
+    //图片
+    static void ExportAssetCommonImage()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonImageFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".png");
+        includeNames.Add(".jpg");
+        includeNames.Add(".bmp");
+        includeNames.Add(".tga");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundlesName(pathFiles, "icon");
+    }
+
+    //表格
+    static void ExportAssetCommonConfig()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonConfigFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".bytes");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        SetAssetBundlesName(pathFiles, "config");
+    }
+
+
+    //字体
+    static void ExportAssetCommonFont()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonFontFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+        includeNames.Add(".ttf");
+        includeNames.Add(".TTF");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundlesName(pathFiles, "fonts");
+    }
+
+    //声音
+    static void ExportAssetCommonAudio()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonAudioFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+
+        includeNames.Add(".mp3");
+        includeNames.Add(".wav");
+        includeNames.Add(".ogg");
+        includeNames.Add(".aiff");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundleName(pathFiles, "audio");
+    }
+
+    //通用特效
+    static void ExportAssetCommonEffect()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonEffectFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+
+        includeNames.Add(".prefab");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundleName(pathFiles, "effect");
+    }
+
+    //通用动画
+    static void ExportAssetCommonAnimation()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonAnimationFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+
+        includeNames.Add(".anim");
+        includeNames.Add(".controller");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundlesName(pathFiles, "anim");
+    }
+
+
+    //other
+    static void ExportAssetCommonOther()
+    {
+        List<string> tabPaths = ToolsConst.GetCommonOtherFilePath();
+        List<string> paths = new List<string>();
+        List<string> pathFiles = new List<string>();
+        List<string> includeNames = new List<string>();
+
+        includeNames.Add(".prefab");
+        includeNames.Add(".png");
+        foreach (var v in tabPaths)
+        {
+            Recursive(v, paths, pathFiles, includeNames);
+        }
+        //给文件设置AssetBundleName
+        SetAssetBundleName(pathFiles, "other");
+    }
+
+    //设置assetBundleName
 
     static void ActivePrefab(List<string> pathFiles, string name)
     {
         if (!Directory.Exists(Application.dataPath + "/empUIPrefab/"))
-        Directory.CreateDirectory(Application.dataPath + "/tempUIPrefab/");
+              Directory.CreateDirectory(Application.dataPath + "/tempUIPrefab/");
             for (int i = 0, max = pathFiles.Count; i < max; i++)
            {
             string strBundleName = FileUtils.GetFileName(pathFiles[i]);
@@ -523,6 +530,52 @@ public class CreatBundle :MonoBehaviour
             Activate(child);
         }
     }
+
+
+
+    private void LoadModel()
+    {
+        var bundle = AssetBundle.LoadFromFile("Assets/StreamingAssets/StreamingAssets");
+
+        AssetBundleManifest manifest = bundle.LoadAsset("AssetBundleManifest") as AssetBundleManifest;
+
+        string[] deps = manifest.GetAllDependencies("android/modelpre.unity3d");
+
+        List<AssetBundle> depList = new List<AssetBundle>();
+
+        for (int i = 0; i < deps.Length; ++i)
+        {
+            AssetBundle ab = AssetBundle.LoadFromFile(Application.dataPath + "/StreamingAssets/" + deps[i]);
+            depList.Add(ab);
+        }
+
+        AssetBundle cubeAb = AssetBundle.LoadFromFile(Application.dataPath + "/StreamingAssets/android/modelpre.unity3d");
+        GameObject org = cubeAb.LoadAsset("jiuyue") as GameObject;
+        Instantiate(org);
+
+        cubeAb.Unload(false);
+        for (int i = 0; i < depList.Count; ++i)
+        {
+            // depList[i].Unload(false);
+        }
+    }
+
+
+    private IEnumerator LoadConfig()
+    {
+        WWW www = new WWW(@"D:\Git\new_path\UnityFrame_zsy\UnityFrame_zsy\Frame_zsy\Assets\StreamingAssets\android\exp_bytes.unity3d");
+
+        yield return www;
+
+        BaseConfig.isUseLocalTable = false;
+
+        BaseConfig.mGameConfig = www.assetBundle;
+
+        ConfFact.Register();
+
+        Debug.Log(StrConfig.GetConfig(900).str);
+    }
+
 
 
 }

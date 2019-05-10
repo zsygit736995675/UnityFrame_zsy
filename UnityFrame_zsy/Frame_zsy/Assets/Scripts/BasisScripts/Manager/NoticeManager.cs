@@ -1,21 +1,18 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
 using UnityEngine;
 
-namespace ClientCore
-{
+/// <summary>
+/// 原生通讯管理
+/// </summary>
     public class NoticeManager : SingletonObject<NoticeManager>
     {
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		private static extern void _onMessageRecieved(string func, string param);
 #elif UNITY_ANDROID && !UNITY_EDITOR
-		
         private static void _onMessageRecieved(string func, string param)
         {
 		    using (AndroidJavaClass jc = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
@@ -53,7 +50,7 @@ namespace ClientCore
             }
         }
 
-        public void RegisterHandler(int key)
+        void RegisterHandler(int key)
         {
             try
             {
@@ -124,7 +121,8 @@ namespace ClientCore
         {
             OnMessageRecieved(s);
         }
-    }
 
 }
+
+
 

@@ -8,15 +8,10 @@ using System.Collections.Generic;
     /// </summary>
     public class ControllerManager : BaseClass<ControllerManager>
     {
-        public void RegisterLoadingController(Action callback)
-        {
-            //this.register((int)ControllerConst.Loading, new LoadingController());//加载模块
-            this.loadingPreloadUI(callback);
-        }
 
         public void RegisterAllController()
         {
-           // this.register((int)ControllerConst.GameMain,new GameController());//公用接收 
+           this.register((int)ControllerConst.GameMainUI,new GameController()); 
         }
 
         private Dictionary<int, BaseController> _modules = new Dictionary<int, BaseController>();

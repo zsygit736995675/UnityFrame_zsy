@@ -15,7 +15,30 @@ public class FileUtils  {
     public static string GetParentFileName(string path, int parentIndex)
     {
         string[] filenames = path.Split('/');
-        return filenames[filenames.Length - parentIndex];
+
+        int index = 0;
+       
+        for (int i=0;i<filenames.Length;i++)
+        {
+            if (filenames[i].Contains("buildRes"))
+            {
+                index = i+2;
+                break;
+            }
+
+            if (filenames[i].Contains("exp_bytes"))
+            {
+                index = i;
+                break;
+            }
+        }
+
+        if (index < filenames.Length)
+        {
+            return filenames[index];
+        }
+
+        return null ;
     }
 
     /// <summary>
@@ -101,19 +124,20 @@ public class FileUtils  {
         MD5CryptoServiceProvider md5Generator = new MD5CryptoServiceProvider();
 
         //需要创建MD5文件的文件夹路径
-        string dir = System.IO.Path.Combine(Application.dataPath, path);
+        string dir = System.IO.Path.Combine(Application.dataPath, "StreamingAssets/"+ path);
+
         //MD5保存路径
-        string savePath = System.IO.Path.Combine(Application.dataPath, path);
+        string savePath = System.IO.Path.Combine(Application.dataPath, "StreamingAssets/"+ path);
 
         foreach (string filePath in Directory.GetFiles(dir))
         {
 
-            if (filePath.Contains(".meta") || filePath.Contains("VersionMD5") || filePath.Contains("manifest") || filePath.Contains(".xml"))
+            if (filePath.Contains(".meta") /**|| filePath.Contains(".manifest")*/ || filePath.Contains("VersionMD5") || filePath.Contains(".xml"))
                 continue;
 
             FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
             byte[] hash = md5Generator.ComputeHash(file);
-            List<string> tempList = new List<string>();
+            List<string> tempList = new List<string>();                                               
             string strMD5 = System.BitConverter.ToString(hash);
             string size = file.Length.ToString();
             tempList.Add(strMD5);
@@ -146,7 +170,7 @@ public class FileUtils  {
             xmlElem.SetAttribute("Size", pair.Value[1]);
         }
 
-        XmlDoc.Save(savePath + "/VersionMD5.xml");
+        XmlDoc.Save(savePath  + "/VersionMD5.xml");
         XmlDoc = null;
     }
 
@@ -154,7 +178,7 @@ public class FileUtils  {
     /// 读xml
     /// </summary>
     /// <param name="fileName"></param>
-    static Dictionary<string, List<string>> ReadMD5File(string fileName)
+    public static Dictionary<string, List<string>> ReadMD5File(string fileName)
     {
         Dictionary<string, List<string>> DicMD5 = new Dictionary<string, List<string>>();
         // 如果文件不存在，则直接返回

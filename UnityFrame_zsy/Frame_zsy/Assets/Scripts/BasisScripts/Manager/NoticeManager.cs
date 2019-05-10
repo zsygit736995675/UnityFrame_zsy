@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Runtime.InteropServices;
+
 using UnityEngine;
 
 /// <summary>
 /// 原生通讯管理
 /// </summary>
-    public class NoticeManager : SingletonObject<NoticeManager>
+public class NoticeManager : SingletonObject<NoticeManager>
     {
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]

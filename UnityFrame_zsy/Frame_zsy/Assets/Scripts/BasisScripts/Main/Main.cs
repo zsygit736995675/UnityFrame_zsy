@@ -8,7 +8,7 @@ public class Main : MonoBehaviour {
     private int localVersion = 1; //版本号
 
     [SerializeField]
-    private bool UseLocalConfig;//是否使用本地表格
+    public bool UseLocalConfig;//是否使用本地表格
 
     private void Awake()
     {

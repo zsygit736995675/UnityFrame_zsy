@@ -14,7 +14,7 @@ public class EditorMenu : Editor {
     /// 生成android AB包
     /// </summary>
     [MenuItem("Tools/ExportAssetBundle/ALL/ExAndroid", false, 1)]
-     static void BundleAndroid()
+    static void BundleAndroid()
     {
         CreatBundle.ExportAssetBundle(BuildTarget.Android);
     }
@@ -23,7 +23,7 @@ public class EditorMenu : Editor {
     /// 生成ios AB包
     /// </summary>
     [MenuItem("Tools/ExportAssetBundle/ALL/ExIOS", false, 1)]
-     static void BundleIos()
+    static void BundleIos()
     {
         CreatBundle.ExportAssetBundle(BuildTarget.iOS);
     }
@@ -32,7 +32,7 @@ public class EditorMenu : Editor {
     /// 生成windows AB包
     /// </summary>
     [MenuItem("Tools/ExportAssetBundle/ALL/ExWindows", false, 1)]
-     static void BundleWindows()
+    static void BundleWindows()
     {
         CreatBundle.ExportAssetBundle(EditorUserBuildSettings.activeBuildTarget);
     }
@@ -152,7 +152,7 @@ public class EditorMenu : Editor {
     /// <summary>
     /// 取消进度条
     /// </summary>
-    [MenuItem("Tools/CleanProgressBar")]
+    [MenuItem("Tools/CleanProgressBar", false, 1)]
     private static void CleanProgressBar()
     {
         EditorUtility.ClearProgressBar();
@@ -172,14 +172,30 @@ public class EditorMenu : Editor {
     /// <summary>
     /// 生成bmFont
     /// </summary>
-    [MenuItem("Tools/Create/CreateBMFont",false,12)]
+    [MenuItem("Tools/Create/CreateBMFont", false, 12)]
     static void CreateFont()
     {
         CreateFontEditor.CreateFont();
     }
 
 
+    //---------------------------------------------------------------Tool---------------------------------------------------------------------
 
+    /// <summary>
+    /// 颜色 转换
+    /// </summary>
+    [MenuItem("Tools/ColorAndCode", false, 23)]
+    static void ColorAndCode()
+    {
+        ColorCode.init();
+    }
 
-
+    /// <summary>
+    /// 分辨率修改
+    /// </summary>
+    [MenuItem("Tools/Resolution Changer")]
+    static void ResoChanger()
+    {
+        ResolutionChanger.Init();
+    }
 }

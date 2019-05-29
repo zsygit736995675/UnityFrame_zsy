@@ -16,6 +16,7 @@ public class demo : MonoBehaviour {
     private Button modelBtn;
     private Button eventBtn;
     private Button wwwImageBtn;
+    private Button cameraBtn;
 
     private Text logText;
 
@@ -40,17 +41,20 @@ public class demo : MonoBehaviour {
         modelBtn = ObjUtils.FindChild<Button>(canvas.transform, "modelBtn");
         eventBtn = ObjUtils.FindChild<Button>(canvas.transform, "eventBtn");
         wwwImageBtn = ObjUtils.FindChild<Button>(canvas.transform, "wwwImageBtn");
+        cameraBtn = ObjUtils.FindChild<Button>(canvas.transform, "cameraBtn");
 
         logText.text = "";
         logBuilder = new StringBuilder();
 
         atlasBtn.onClick.AddListener(AtlasTest);
         sceneBtn.onClick.AddListener(()=> { StartCoroutine(SceneTest()); });
-        sourceBtn.onClick.AddListener(SourceTest);
+        sourceBtn.onClick.AddListener(SourceTest);  
         configBtn.onClick.AddListener(ConfigTest);
         uiBtn.onClick.AddListener(UITest);
         modelBtn.onClick.AddListener(ModelTest);
         eventBtn.onClick.AddListener(EventTest);
+
+
         wwwImageBtn.onClick.AddListener(()=> {
             Image img = wwwImageBtn.GetComponentInChildren<Image>();
             WWWEngine.SetGameAsyncImage(img, "http://u3d-model.oss-cn-beijing.aliyuncs.com/model/Res/Ver3/testimg.jpg");
